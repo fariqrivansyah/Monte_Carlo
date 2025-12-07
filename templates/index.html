@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Monte Carlo Weather Prediction</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="nav-title">🌤 Weather Monte Carlo Dashboard</div>
+</div>
+
+<div class="container">
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert">
+            {% for msg in messages %}
+              <p>{{ msg }}</p>
+            {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="card fade-in">
+        <h2>Prediksi Cuaca Dengan Monte Carlo</h2>
+        <p class="text-muted">Unggah dataset cuaca atau gunakan sample. Pilih metode & jumlah simulasi.</p>
+
+        <form action="/" method="POST" enctype="multipart/form-data">
+
+            <!-- File Upload -->
+            <label class="form-label">Upload Dataset CSV (kolom: temp)</label>
+            <input type="file" name="file" class="form-control">
+
+            <div class="divider">atau</div>
+
+            <!-- Sample Dataset -->
+            <label class="form-label">Gunakan Sample Dataset</label>
+            <select name="use_sample" class="form-control">
+                <option value="no">Tidak</option>
+                <option value="yes">Ya, gunakan sample (weather_2024_full.csv)</option>
+            </select>
+
+            <!-- Method -->
+            <label class="form-label">Pilih Metode Monte Carlo</label>
+            <select name="method" class="form-control">
+                <option value="parametric">Parametric Normal</option>
+                <option value="empirical">Empirical Bootstrap</option>
+            </select>
+
+            <!-- Simulations -->
+            <label class="form-label">Jumlah Simulasi</label>
+            <input type="number" name="nsim" class="form-control" value="10000" min="1000">
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn-primary full-width">Jalankan Prediksi</button>
+        </form>
+    </div>
+
+</div>
+
+<div class="footer">
+    © Dashboard — Monte Carlo Simulation
+</div>
+
+</body>
+</html>
+
